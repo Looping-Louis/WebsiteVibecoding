@@ -21,7 +21,7 @@ export class LoginComponent {
 
   readonly form = this.formBuilder.group({
     email: ['demo@ai.local', [Validators.required, Validators.email]],
-    password: ['demo1234', [Validators.required, Validators.minLength(6)]]
+    password: ['', [Validators.required, Validators.minLength(12)]]
   });
 
   submit(): void {
@@ -40,7 +40,7 @@ export class LoginComponent {
         this.loading.set(false);
 
         if (!success) {
-          this.error.set('Login fehlgeschlagen. Nutze demo@ai.local und demo1234.');
+          this.error.set('Login fehlgeschlagen. Bitte prüfe E-Mail und Passwort.');
           return;
         }
 

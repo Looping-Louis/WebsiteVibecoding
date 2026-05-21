@@ -1,17 +1,30 @@
 import { env } from '../config/env.js';
+import { query } from '../db/client.js';
 import { AiGenerateRequest, AiMessage } from '../models/ai.model.js';
+import { AuthenticatedUser } from '../models/auth.model.js';
 
 class AiService {
-  async generate(request: AiGenerateRequest): Promise<AiMessage> {
+  async generate(request: AiGenerateRequest, user: AuthenticatedUser): Promise<AiMessage> {
+    const provider = env.openAiApiKey ? 'configured-provider-placeholder' : 'local-fallback';
     const content = env.openAiApiKey
       ? this.buildProviderReadyResponse(request.prompt)
       : this.buildLocalFallbackResponse(request.prompt);
 
-    return {
+    const message: AiMessage = {
       role: 'assistant',
       content,
       createdAt: new Date().toISOString()
     };
+
+    await query(
+      `
+        INSERT INTO ai_generations (user_id, prompt, response_content, provider)
+        VALUES ($1, $2, $3, $4)
+      `,
+      [user.id, request.prompt.trim(), message.content, provider]
+    );
+
+    return message;
   }
 
   private buildLocalFallbackResponse(prompt: string): string {

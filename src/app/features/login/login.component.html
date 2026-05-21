@@ -6,8 +6,7 @@
       <p class="login-card__eyebrow">Geschützter Bereich</p>
       <h1 id="login-title">Login</h1>
       <p class="login-card__text">
-        Der KI Workspace ist schlicht gehalten und kann später mit echter Authentifizierung und
-        einem KI-Backend verbunden werden.
+        Der KI Workspace ist mit deinem Backend-Account geschützt.
       </p>
 
       <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
@@ -28,7 +27,7 @@
             autocomplete="current-password"
           />
           @if (fieldInvalid('password')) {
-            <p>Das Passwort muss mindestens 6 Zeichen haben.</p>
+            <p>Das Passwort muss mindestens 12 Zeichen haben.</p>
           }
         </div>
 
@@ -41,7 +40,7 @@
         </button>
       </form>
 
-      <p class="login-card__hint">Demo-Zugang: demo@ai.local / demo1234</p>
+      <p class="login-card__hint">Login mit deinem angelegten Backend-Account.</p>
     </article>
   </div>
 </section>

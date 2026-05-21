@@ -1,16 +1,28 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { AuthSession, LoginRequest } from '../models/auth.model.js';
+import { AuthSession, LoginRequest, RegisterRequest } from '../models/auth.model.js';
 import { authService } from '../services/auth.service.js';
 
 class AuthController {
-  login(
+  async login(
     request: Request<unknown, AuthSession, LoginRequest>,
     response: Response<AuthSession>,
     next: NextFunction
-  ): void {
+  ): Promise<void> {
     try {
-      response.json(authService.login(request.body));
+      response.json(await authService.login(request.body));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async register(
+    request: Request<unknown, AuthSession, RegisterRequest>,
+    response: Response<AuthSession>,
+    next: NextFunction
+  ): Promise<void> {
+    try {
+      response.status(201).json(await authService.register(request.body));
     } catch (error) {
       next(error);
     }

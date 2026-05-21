@@ -17,6 +17,7 @@ Die App läuft standardmäßig unter `http://localhost:4200/`.
 cd backend
 npm install
 cp .env.example .env
+npm run db:setup
 npm run dev
 ```
 
@@ -27,14 +28,14 @@ Die API läuft unter `http://localhost:3000/api` und erlaubt CORS für
 
 Route: `http://localhost:4200/ki-workspace`
 
-Demo-Login:
+Initialer Account aus `backend/.env`:
 
 ```text
 E-Mail: demo@ai.local
-Passwort: demo1234
+Passwort: siehe INITIAL_USER_PASSWORD
 ```
 
-Die Authentifizierung nutzt das Express-Backend unter `environment.authEndpoint`. Der KI Workspace ruft `environment.aiEndpoint` mit dem gespeicherten Bearer Token auf.
+Die Authentifizierung nutzt echte PostgreSQL-Accounts im Express-Backend unter `environment.authEndpoint`. Der KI Workspace ruft `environment.aiEndpoint` mit dem gespeicherten Bearer Token auf.
 
 ## Build
 
@@ -42,7 +43,7 @@ Die Authentifizierung nutzt das Express-Backend unter `environment.authEndpoint`
 npm run build
 ```
 
-Der Produktionsbuild wird nach `dist/website-vibecoding` geschrieben.
+Der Produktionsbuild wird nach `dist/website-vibecoding/browser` geschrieben.
 
 ## Struktur
 
@@ -72,4 +73,4 @@ src/app/
     pipes/
 ```
 
-Content liegt in `src/app/data/content.ts`. Services liefern aktuell lokale Daten per RxJS und sind vorbereitet, um später REST- oder GraphQL-Calls zu kapseln. API-Endpunkte sind in `src/environments/environment.ts` vorbereitet.
+Content liegt in `src/app/data/content.ts`. Auth, Kontakt und KI Workspace nutzen REST-Endpunkte aus `src/environments/environment.ts`.

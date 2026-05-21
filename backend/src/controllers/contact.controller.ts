@@ -4,13 +4,13 @@ import { ContactRequest, ContactResponse } from '../models/contact.model.js';
 import { contactService } from '../services/contact.service.js';
 
 class ContactController {
-  submit(
+  async submit(
     request: Request<unknown, ContactResponse, ContactRequest>,
     response: Response<ContactResponse>,
     next: NextFunction
-  ): void {
+  ): Promise<void> {
     try {
-      response.json(contactService.submit(request.body));
+      response.json(await contactService.submit(request.body));
     } catch (error) {
       next(error);
     }
