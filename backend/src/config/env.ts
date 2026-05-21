@@ -3,19 +3,37 @@ import { z } from 'zod';
 
 config();
 
+const booleanEnv = z.preprocess((value) => {
+  if (typeof value !== 'string') {
+    return value;
+  }
+
+  const normalizedValue = value.trim().toLowerCase();
+
+  if (['true', '1', 'yes', 'on'].includes(normalizedValue)) {
+    return true;
+  }
+
+  if (['false', '0', 'no', 'off', ''].includes(normalizedValue)) {
+    return false;
+  }
+
+  return value;
+}, z.boolean());
+
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   PORT: z.coerce.number().int().positive().default(3000),
   HOST: z.string().min(1).default('127.0.0.1'),
   CORS_ORIGIN: z.string().url().default('http://localhost:4200'),
   DATABASE_URL: z.string().min(1),
-  DATABASE_SSL: z.coerce.boolean().optional(),
+  DATABASE_SSL: booleanEnv.optional(),
   JWT_SECRET: z.string().min(32),
   JWT_EXPIRES_IN_HOURS: z.coerce.number().int().positive().default(8),
   INITIAL_USER_EMAIL: z.string().email().default('demo@ai.local'),
   INITIAL_USER_PASSWORD: z.string().min(12),
   INITIAL_USER_DISPLAY_NAME: z.string().min(1).default('Demo User'),
-  ALLOW_REGISTRATION: z.coerce.boolean().default(false),
+  ALLOW_REGISTRATION: booleanEnv.default(false),
   OPENAI_API_KEY: z.string().optional()
 });
 
