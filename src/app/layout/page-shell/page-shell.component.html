@@ -1,0 +1,9 @@
+<app-scroll-progress />
+<app-animated-background />
+<app-navbar />
+
+<main id="main-content" class="page-shell__main" [@routeFade]="routeAnimation(outlet)">
+  <router-outlet #outlet="outlet" />
+</main>
+
+<app-footer />

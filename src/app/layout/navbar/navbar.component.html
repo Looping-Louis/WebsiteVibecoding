@@ -1,0 +1,56 @@
+<a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+
+<header class="navbar" [class.navbar--scrolled]="scrolled()">
+  <nav class="navbar__inner container" aria-label="Hauptnavigation">
+    <a class="navbar__brand" routerLink="/" aria-label="AI Native Studio Startseite" (click)="closeMenu()">
+      <span class="navbar__brand-mark">AI</span>
+      <span class="navbar__brand-text">AI Native Studio</span>
+    </a>
+
+    <div class="navbar__links" aria-label="Desktop Navigation">
+      @for (item of navigation$ | async; track item.route) {
+        <a
+          class="navbar__link"
+          [routerLink]="item.route"
+          routerLinkActive="navbar__link--active"
+          [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+        >
+          {{ item.label }}
+        </a>
+      }
+    </div>
+
+    <a class="navbar__cta" routerLink="/kontakt">Projekt starten</a>
+
+    <button
+      class="navbar__toggle"
+      type="button"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="mobile-navigation"
+      aria-label="Navigation öffnen"
+      (click)="toggleMenu()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <div
+    id="mobile-navigation"
+    class="navbar__mobile container"
+    [@mobileMenu]="menuOpen() ? 'open' : 'closed'"
+  >
+    @for (item of navigation$ | async; track item.route) {
+      <a
+        class="navbar__mobile-link"
+        [routerLink]="item.route"
+        routerLinkActive="navbar__mobile-link--active"
+        [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+        (click)="closeMenu()"
+      >
+        {{ item.label }}
+      </a>
+    }
+  </div>
+</header>

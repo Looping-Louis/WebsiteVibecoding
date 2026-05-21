@@ -1,0 +1,14 @@
+<div class="agent-flow" aria-label="Animierter Agent Workflow">
+  @for (node of nodes; track node.title; let index = $index) {
+    <article class="agent-flow__node" [style.animation-delay.ms]="index * 180">
+      <span>{{ index + 1 }}</span>
+      <strong>{{ node.title }}</strong>
+      <small>{{ node.meta }}</small>
+    </article>
+    @if (!$last) {
+      <div class="agent-flow__connector" aria-hidden="true">
+        <span></span>
+      </div>
+    }
+  }
+</div>

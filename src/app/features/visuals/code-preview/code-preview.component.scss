@@ -1,0 +1,231 @@
+.code-preview {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(143, 164, 255, 0.18);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.025)),
+    rgba(6, 9, 22, 0.88);
+  box-shadow: var(--shadow-xl);
+}
+
+.code-preview::before {
+  position: absolute;
+  inset: -1px;
+  content: '';
+  background:
+    linear-gradient(90deg, transparent, rgba(66, 233, 255, 0.28), transparent),
+    radial-gradient(circle at 12% 12%, rgba(43, 125, 255, 0.25), transparent 18rem);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.code-preview__topbar,
+.code-preview__body {
+  position: relative;
+  z-index: 1;
+}
+
+.code-preview__topbar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.9rem 1rem;
+
+  span {
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  span:nth-child(1) {
+    background: #ff6b7a;
+  }
+
+  span:nth-child(2) {
+    background: #ffd166;
+  }
+
+  span:nth-child(3) {
+    background: #42e9ff;
+  }
+
+  p {
+    margin: 0 0 0 0.45rem;
+    color: var(--color-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+}
+
+.code-preview__body {
+  display: grid;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.35rem);
+}
+
+.code-preview__prompt,
+.code-preview__code,
+.code-preview__agents article {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.code-preview__prompt {
+  position: relative;
+  padding: 1rem;
+
+  p {
+    margin: 0.55rem 0 0;
+    color: var(--color-text);
+  }
+}
+
+.code-preview__label {
+  color: var(--color-cyan);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.code-preview__cursor {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 0.6rem;
+  height: 1.1rem;
+  background: var(--color-cyan);
+  animation: blink 1s steps(2, start) infinite;
+}
+
+.code-preview__code {
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem;
+}
+
+.code-preview__line {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.65rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: lineIn 520ms ease forwards;
+
+  span {
+    color: var(--color-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+
+  code {
+    overflow-wrap: anywhere;
+    color: #dbe7ff;
+    font-family: var(--font-mono);
+    font-size: clamp(0.72rem, 1.5vw, 0.86rem);
+  }
+}
+
+.code-preview__status,
+.code-preview__agents {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.code-preview__status {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  span {
+    border-radius: 999px;
+    background: rgba(66, 233, 255, 0.08);
+    padding: 0.6rem 0.75rem;
+    color: var(--color-cyan);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-align: center;
+    animation: pulseStatus 2.8s ease-in-out infinite;
+  }
+}
+
+.code-preview__agents {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  article {
+    padding: 0.75rem;
+    animation: floatCard 4s ease-in-out infinite;
+  }
+
+  strong,
+  small {
+    display: block;
+  }
+
+  strong {
+    color: var(--color-text);
+    font-size: 0.82rem;
+  }
+
+  small {
+    margin-top: 0.25rem;
+    color: var(--color-subtle);
+  }
+}
+
+.code-preview--compact .code-preview__agents {
+  grid-template-columns: 1fr;
+}
+
+@keyframes lineIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes pulseStatus {
+  50% {
+    background: rgba(124, 92, 255, 0.16);
+    color: white;
+  }
+}
+
+@keyframes floatCard {
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@media (min-width: 720px) {
+  .code-preview__body {
+    grid-template-columns: 1.05fr 1fr;
+  }
+
+  .code-preview__status,
+  .code-preview__agents {
+    grid-column: 1 / -1;
+  }
+
+  .code-preview__status {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .code-preview__cursor,
+  .code-preview__line,
+  .code-preview__status span,
+  .code-preview__agents article {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,31 @@
+.glow-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.035)),
+    rgba(9, 13, 30, 0.74);
+  box-shadow: var(--shadow-lg);
+}
+
+.glow-card::before {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: radial-gradient(circle at 16% 0%, var(--card-glow), transparent 18rem);
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.glow-card--blue {
+  --card-glow: rgba(43, 125, 255, 0.32);
+}
+
+.glow-card--violet {
+  --card-glow: rgba(124, 92, 255, 0.3);
+}
+
+.glow-card--cyan {
+  --card-glow: rgba(66, 233, 255, 0.25);
+}

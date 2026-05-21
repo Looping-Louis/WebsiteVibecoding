@@ -1,0 +1,14 @@
+<ol class="timeline">
+  @for (step of steps; track step.label) {
+    <li class="timeline__item" [style.animation-delay.ms]="$index * 120">
+      <span class="timeline__label">{{ step.label }}</span>
+      <div>
+        @if (step.status) {
+          <small>{{ step.status }}</small>
+        }
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.description }}</p>
+      </div>
+    </li>
+  }
+</ol>

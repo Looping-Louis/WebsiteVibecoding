@@ -1,0 +1,70 @@
+<section class="workspace section">
+  <div class="container workspace__inner">
+    <header class="workspace__header">
+      <div>
+        <p>KI Workspace</p>
+        <h1>Schlichter Bereich für deine spätere KI-Anbindung.</h1>
+      </div>
+
+      <div class="workspace__session">
+        @if (session$ | async; as session) {
+          <span>{{ session.displayName }}</span>
+        }
+        <button type="button" (click)="logout()">Logout</button>
+      </div>
+    </header>
+
+    <div class="workspace__grid">
+      <aside class="workspace__aside" aria-label="Status">
+        <h2>Status</h2>
+        <dl>
+          <div>
+            <dt>Auth</dt>
+            <dd>Frontend Guard aktiv</dd>
+          </div>
+          <div>
+            <dt>KI API</dt>
+            <dd>Service vorbereitet</dd>
+          </div>
+          <div>
+            <dt>Backend</dt>
+            <dd>Noch nicht verbunden</dd>
+          </div>
+        </dl>
+      </aside>
+
+      <main class="workspace__panel" aria-label="KI Eingabe">
+        <div class="workspace__messages">
+          @if (!messages().length) {
+            <p class="workspace__empty">
+              Noch keine Anfrage. Dieses Panel ist bewusst reduziert und wartet auf deine spätere
+              KI-Integration.
+            </p>
+          }
+
+          @for (message of messages(); track message.createdAt) {
+            <article class="message" [class.message--assistant]="message.role === 'assistant'">
+              <span>{{ message.role === 'user' ? 'Du' : 'KI' }}</span>
+              <p>{{ message.content }}</p>
+            </article>
+          }
+
+          @if (loading()) {
+            <p class="workspace__loading" role="status">Antwort wird vorbereitet...</p>
+          }
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <label for="prompt">Prompt</label>
+          <textarea
+            id="prompt"
+            rows="4"
+            formControlName="prompt"
+            placeholder="Schreibe hier später deine Anfrage an die KI..."
+          ></textarea>
+          <button type="submit" [disabled]="loading()">Senden</button>
+        </form>
+      </main>
+    </div>
+  </div>
+</section>

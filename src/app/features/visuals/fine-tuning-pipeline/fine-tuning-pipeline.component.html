@@ -1,0 +1,13 @@
+<div class="pipeline" aria-label="Fine-Tuning Pipeline">
+  @for (step of steps; track step; let index = $index) {
+    <article class="pipeline__step" [style.animation-delay.ms]="index * 160">
+      <span>{{ index + 1 }}</span>
+      <strong>{{ step }}</strong>
+      <div class="pipeline__bars" aria-hidden="true">
+        <i></i>
+        <i></i>
+        <i></i>
+      </div>
+    </article>
+  }
+</div>

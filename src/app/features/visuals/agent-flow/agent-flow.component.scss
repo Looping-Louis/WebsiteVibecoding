@@ -1,0 +1,147 @@
+.agent-flow {
+  display: grid;
+  gap: 0.75rem;
+  border: 1px solid rgba(143, 164, 255, 0.18);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(124, 92, 255, 0.24), transparent 18rem),
+    rgba(6, 9, 22, 0.82);
+  padding: clamp(1rem, 3vw, 1.4rem);
+  box-shadow: var(--shadow-lg);
+}
+
+.agent-flow__node {
+  position: relative;
+  display: grid;
+  gap: 0.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.055);
+  padding: 1rem;
+  animation: nodePulse 4s ease-in-out infinite;
+
+  span {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(66, 233, 255, 0.12);
+    color: var(--color-cyan);
+    font-weight: 900;
+  }
+
+  strong {
+    color: var(--color-text);
+    font-size: 1.05rem;
+  }
+
+  small {
+    color: var(--color-muted);
+  }
+}
+
+.agent-flow__connector {
+  position: relative;
+  height: 2rem;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1.45rem;
+    width: 1px;
+    content: '';
+    background: rgba(66, 233, 255, 0.24);
+  }
+
+  span {
+    position: absolute;
+    left: 1.25rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--color-cyan);
+    box-shadow: 0 0 16px rgba(66, 233, 255, 0.8);
+    animation: packetDown 1.8s ease-in-out infinite;
+  }
+}
+
+@keyframes packetDown {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    opacity: 1;
+  }
+
+  to {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes nodePulse {
+  50% {
+    border-color: rgba(66, 233, 255, 0.28);
+    transform: translateY(-2px);
+  }
+}
+
+@media (min-width: 900px) {
+  .agent-flow {
+    grid-template-columns: 1fr 3rem 1fr 3rem 1fr;
+    align-items: center;
+  }
+
+  .agent-flow__node:nth-of-type(n + 4) {
+    grid-column: span 1;
+  }
+
+  .agent-flow__connector {
+    width: 3rem;
+    height: 1px;
+
+    &::before {
+      top: 0;
+      right: 0;
+      bottom: auto;
+      left: 0;
+      width: auto;
+      height: 1px;
+    }
+
+    span {
+      top: -0.2rem;
+      left: 0;
+      animation-name: packetAcross;
+    }
+  }
+}
+
+@keyframes packetAcross {
+  from {
+    left: 0;
+    opacity: 0;
+  }
+
+  25%,
+  75% {
+    opacity: 1;
+  }
+
+  to {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agent-flow__node,
+  .agent-flow__connector span {
+    animation: none;
+  }
+}

@@ -1,0 +1,40 @@
+<div class="code-preview" [class.code-preview--compact]="compact">
+  <div class="code-preview__topbar">
+    <span></span>
+    <span></span>
+    <span></span>
+    <p>prompt-to-product.ts</p>
+  </div>
+
+  <div class="code-preview__body">
+    <section class="code-preview__prompt" aria-label="Prompt Interface">
+      <span class="code-preview__label">Prompt</span>
+      <p>Baue ein AI-native Dashboard mit klarer Navigation, Review States und Backend-ready Services.</p>
+      <div class="code-preview__cursor" aria-hidden="true"></div>
+    </section>
+
+    <section class="code-preview__code" aria-label="Generierter Code">
+      @for (line of codeLines; track line; let index = $index) {
+        <div class="code-preview__line" [style.animation-delay.ms]="index * 180">
+          <span>{{ index + 1 }}</span>
+          <code>{{ line }}</code>
+        </div>
+      }
+    </section>
+
+    <div class="code-preview__status" aria-label="Status">
+      @for (status of statuses; track status; let index = $index) {
+        <span [style.animation-delay.ms]="index * 360">{{ status }}</span>
+      }
+    </div>
+
+    <div class="code-preview__agents" aria-label="Agenten">
+      @for (agent of agentCards; track agent; let index = $index) {
+        <article [style.animation-delay.ms]="index * 240">
+          <strong>{{ agent }}</strong>
+          <small>online</small>
+        </article>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<footer class="footer">
+  <div class="container footer__inner">
+    <section class="footer__brand" aria-label="AI Native Studio">
+      <a class="footer__logo" routerLink="/">
+        <span>AI</span>
+        AI Native Studio
+      </a>
+      <p>
+        Strategische Frontends, Agent-Workflows und Modellkonzepte für Teams, die AI-native
+        Produkte bauen.
+      </p>
+    </section>
+
+    <nav class="footer__nav" aria-label="Footer Navigation">
+      @for (item of navigation$ | async; track item.route) {
+        <a [routerLink]="item.route">{{ item.label }}</a>
+      }
+    </nav>
+
+    <div class="footer__meta">
+      <span>Backend-ready Angular Frontend</span>
+      <span>© {{ year }} AI Native Studio</span>
+    </div>
+  </div>
+</footer>

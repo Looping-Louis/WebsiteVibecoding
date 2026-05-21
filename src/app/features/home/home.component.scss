@@ -1,0 +1,122 @@
+.hero {
+  padding-top: clamp(3.5rem, 8vw, 7rem);
+}
+
+.hero__grid {
+  display: grid;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.hero__content {
+  max-width: 46rem;
+
+  h1 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.34em;
+    margin: 0.75rem 0 0;
+    font-size: clamp(3rem, 8vw, 6.9rem);
+    line-height: 0.9;
+  }
+
+  h1 span {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: wordIn 520ms ease forwards;
+  }
+}
+
+.hero__text {
+  max-width: 42rem;
+  margin: 1.4rem 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+}
+
+.hero__actions,
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 1.7rem;
+}
+
+.hero__visual {
+  min-width: 0;
+}
+
+.topic-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: clamp(2rem, 5vw, 3rem);
+}
+
+.process-section {
+  position: relative;
+}
+
+.process-section app-process-timeline {
+  display: block;
+  margin-top: 2rem;
+}
+
+.cta {
+  display: grid;
+  gap: 1.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(66, 233, 255, 0.2);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 14% 0%, rgba(43, 125, 255, 0.3), transparent 22rem),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  padding: clamp(1.4rem, 4vw, 2.4rem);
+  box-shadow: var(--shadow-xl);
+
+  h2 {
+    margin: 0.5rem 0 0;
+    font-size: clamp(2rem, 5vw, 4.2rem);
+    line-height: 0.98;
+  }
+
+  p:not(.eyebrow) {
+    max-width: 42rem;
+    margin: 1rem 0 0;
+    color: var(--color-muted);
+  }
+}
+
+@keyframes wordIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 860px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.84fr);
+  }
+
+  .topic-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cta {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .cta__actions {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__content h1 span {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

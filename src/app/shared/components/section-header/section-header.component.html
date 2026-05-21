@@ -1,0 +1,9 @@
+<div class="section-header" [class.section-header--center]="align === 'center'">
+  @if (eyebrow) {
+    <p class="section-header__eyebrow">{{ eyebrow }}</p>
+  }
+  <h2>{{ title }}</h2>
+  @if (text) {
+    <p class="section-header__text">{{ text }}</p>
+  }
+</div>

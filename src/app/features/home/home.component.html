@@ -1,0 +1,67 @@
+@if (page$ | async; as page) {
+  <section class="hero section">
+    <div class="container hero__grid">
+      <div class="hero__content">
+        <p class="eyebrow">AI-native Frontend Studio</p>
+        <h1>
+          @for (word of page.hero.headline.split(' '); track $index) {
+            <span [style.animation-delay.ms]="$index * 55">{{ word }}</span>
+          }
+        </h1>
+        <p class="hero__text">{{ page.hero.subheadline }}</p>
+        <div class="hero__actions">
+          <app-button [label]="page.hero.primaryCta" routerLink="/vibe-coding" />
+          <app-button [label]="page.hero.secondaryCta" routerLink="/kontakt" variant="secondary" />
+        </div>
+      </div>
+
+      <div class="hero__visual" appScrollReveal>
+        <app-code-preview />
+      </div>
+    </div>
+  </section>
+
+  <section id="themen" class="section">
+    <div class="container">
+      <app-section-header
+        appScrollReveal
+        [eyebrow]="page.intro.eyebrow"
+        [title]="page.intro.title"
+        [text]="page.intro.text"
+        align="center"
+      />
+
+      <div class="topic-grid">
+        @for (topic of page.topics; track topic.title) {
+          <app-feature-card appScrollReveal [feature]="topic" />
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section process-section">
+    <div class="container">
+      <app-section-header
+        appScrollReveal
+        eyebrow="Prozess"
+        title="Von Idee zu Produkt, ohne die Backend-Zukunft zu verbauen."
+        text="Die Frontend-Struktur trennt Content, Services, Modelle und UI, damit später echte APIs sauber angeschlossen werden können."
+      />
+      <app-process-timeline appScrollReveal [steps]="page.process" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container cta" appScrollReveal>
+      <div>
+        <p class="eyebrow">Nächster Schritt</p>
+        <h2>{{ page.cta.title }}</h2>
+        <p>{{ page.cta.text }}</p>
+      </div>
+      <div class="cta__actions">
+        <app-button [label]="page.cta.primaryCta" routerLink="/kontakt" />
+        <app-button [label]="page.cta.secondaryCta" routerLink="/fine-tuning" variant="ghost" />
+      </div>
+    </div>
+  </section>
+}

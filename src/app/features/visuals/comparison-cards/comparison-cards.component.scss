@@ -1,0 +1,62 @@
+.comparison {
+  display: grid;
+  gap: 1rem;
+}
+
+.comparison__card {
+  --accent: var(--color-blue);
+  display: grid;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 10% 0%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 14rem),
+    rgba(255, 255, 255, 0.052);
+  padding: clamp(1.15rem, 2.4vw, 1.5rem);
+
+  h3,
+  p,
+  ul,
+  strong {
+    margin: 0;
+  }
+
+  p,
+  li {
+    color: var(--color-muted);
+  }
+
+  ul {
+    display: grid;
+    gap: 0.45rem;
+    padding-left: 1.1rem;
+  }
+
+  strong {
+    color: var(--color-text);
+  }
+}
+
+.comparison__card--cyan {
+  --accent: var(--color-cyan);
+}
+
+.comparison__card--violet {
+  --accent: var(--color-violet);
+}
+
+.comparison__badge {
+  width: fit-content;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  padding: 0.42rem 0.65rem;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+@media (min-width: 820px) {
+  .comparison {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

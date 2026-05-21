@@ -1,0 +1,70 @@
+:host {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(43, 125, 255, 0.18), transparent 28rem),
+    radial-gradient(circle at 85% 22%, rgba(124, 92, 255, 0.16), transparent 26rem),
+    linear-gradient(180deg, #050711 0%, #080b19 42%, #050711 100%);
+}
+
+.background__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 82%);
+  animation: drift 18s linear infinite;
+}
+
+.background__line {
+  position: absolute;
+  width: 42vw;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(66, 233, 255, 0.75), transparent);
+  filter: drop-shadow(0 0 10px rgba(66, 233, 255, 0.45));
+  opacity: 0.42;
+  transform: rotate(-18deg);
+  animation: lineMove 9s ease-in-out infinite;
+}
+
+.background__line--one {
+  top: 22%;
+  left: -8%;
+}
+
+.background__line--two {
+  right: -10%;
+  bottom: 26%;
+  animation-delay: -4s;
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(-54px, -54px, 0);
+  }
+}
+
+@keyframes lineMove {
+  50% {
+    transform: translate3d(12vw, 5vh, 0) rotate(-18deg);
+    opacity: 0.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .background__grid,
+  .background__line {
+    animation: none;
+  }
+}

@@ -1,0 +1,22 @@
+@if (routerLink) {
+  <a class="button" [class]="'button button--' + variant" [routerLink]="routerLink">
+    <span>{{ label }}</span>
+    <i aria-hidden="true"></i>
+  </a>
+} @else if (href) {
+  <a class="button" [class]="'button button--' + variant" [href]="href">
+    <span>{{ label }}</span>
+    <i aria-hidden="true"></i>
+  </a>
+} @else {
+  <button
+    class="button"
+    [class]="'button button--' + variant"
+    [type]="type"
+    [disabled]="disabled"
+    (click)="pressed.emit()"
+  >
+    <span>{{ label }}</span>
+    <i aria-hidden="true"></i>
+  </button>
+}

@@ -1,0 +1,90 @@
+<section class="page-hero section contact-hero">
+  <div class="container contact-grid">
+    <div>
+      <p class="eyebrow">Kontakt</p>
+      <h1>Starte dein AI-native Produkt mit einem klaren nächsten Schritt.</h1>
+      <p class="page-hero__summary">
+        Sag kurz, worum es geht. Das Formular ist validiert und bereits so strukturiert, dass später
+        ein echtes Backend über den ContactService angebunden werden kann.
+      </p>
+    </div>
+
+    <app-glow-card appScrollReveal tone="cyan">
+      <form class="contact-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" formControlName="name" autocomplete="name" />
+          @if (fieldInvalid('name')) {
+            <p class="field__error">Bitte gib deinen Namen ein.</p>
+          }
+        </div>
+
+        <div class="field">
+          <label for="email">E-Mail</label>
+          <input id="email" type="email" formControlName="email" autocomplete="email" />
+          @if (fieldInvalid('email')) {
+            <p class="field__error">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+          }
+        </div>
+
+        <div class="field">
+          <label for="topic">Thema</label>
+          <select id="topic" formControlName="topic">
+            @for (topic of topics$ | async; track topic) {
+              <option [value]="topic">{{ topic }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Nachricht</label>
+          <textarea id="message" rows="6" formControlName="message"></textarea>
+          @if (fieldInvalid('message')) {
+            <p class="field__error">Bitte beschreibe kurz dein Anliegen.</p>
+          }
+        </div>
+
+        <app-button
+          label="Anfrage vorbereiten"
+          type="submit"
+          [disabled]="submitState() === 'submitting'"
+        />
+
+        @if (submitState() === 'success') {
+          <p class="contact-form__success" role="status">
+            Danke. Die Anfrage wurde lokal simuliert und ist bereit für eine spätere API-Anbindung.
+          </p>
+        }
+      </form>
+    </app-glow-card>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container contact-notes">
+    <app-section-header
+      appScrollReveal
+      eyebrow="Worüber wir sprechen können"
+      title="Scope, Agenten, Daten oder Frontend-Architektur."
+      text="Ein guter Start ist kein großer Pitch, sondern ein sauberer technischer und produktbezogener Rahmen."
+    />
+
+    <div class="contact-notes__grid">
+      <article appScrollReveal>
+        <span>01</span>
+        <h2>MVP & Vibe Coding</h2>
+        <p>Schnell sichtbare Prototypen mit klarer Code- und UX-Kontrolle.</p>
+      </article>
+      <article appScrollReveal>
+        <span>02</span>
+        <h2>Agent-Workflows</h2>
+        <p>Planung, Tools, Memory und Prüfungen für automatisierte Abläufe.</p>
+      </article>
+      <article appScrollReveal>
+        <span>03</span>
+        <h2>Modellstrategie</h2>
+        <p>Entscheidung zwischen Prompting, RAG und Fine-Tuning.</p>
+      </article>
+    </div>
+  </div>
+</section>

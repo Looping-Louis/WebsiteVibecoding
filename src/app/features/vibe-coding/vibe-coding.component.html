@@ -1,0 +1,62 @@
+@if (topic$ | async; as topic) {
+  <section class="page-hero section">
+    <div class="container page-hero__grid">
+      <div>
+        <p class="eyebrow">{{ topic.eyebrow }}</p>
+        <h1>{{ topic.title }}</h1>
+        <p class="page-hero__summary">{{ topic.summary }}</p>
+        <div class="page-hero__actions">
+          <app-button [label]="topic.ctaLabel" routerLink="/kontakt" />
+          <app-button label="KI-Agenten ansehen" routerLink="/ki-agenten" variant="secondary" />
+        </div>
+      </div>
+      <app-code-preview appScrollReveal />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <app-section-header
+        appScrollReveal
+        eyebrow="Prinzip"
+        title="KI baut schneller, Menschen entscheiden besser."
+        text="Vibe Coding ist produktiv, wenn Geschwindigkeit und Verantwortung zusammen gedacht werden."
+      />
+      <div class="copy-stack" appScrollReveal>
+        @for (paragraph of topic.paragraphs; track paragraph) {
+          <p>{{ paragraph }}</p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <app-section-header
+        appScrollReveal
+        eyebrow="Capabilities"
+        title="Was Vibe Coding im Produktteam auslöst."
+        text="Die Methode verbindet schnelles Bauen mit klaren Review- und Qualitätsgrenzen."
+      />
+
+      <div class="feature-grid">
+        @for (feature of topic.features; track feature.title) {
+          <app-feature-card appScrollReveal [feature]="feature" />
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container highlight-grid">
+      @for (highlight of topic.highlights; track highlight; let index = $index) {
+        <app-glow-card appScrollReveal [tone]="index === 1 ? 'violet' : index === 2 ? 'cyan' : 'blue'">
+          <div class="highlight-card">
+            <span>0{{ index + 1 }}</span>
+            <p>{{ highlight }}</p>
+          </div>
+        </app-glow-card>
+      }
+    </div>
+  </section>
+}

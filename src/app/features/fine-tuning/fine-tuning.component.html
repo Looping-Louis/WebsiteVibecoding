@@ -1,0 +1,73 @@
+@if (topic$ | async; as topic) {
+  <section class="page-hero section">
+    <div class="container page-hero__grid">
+      <div>
+        <p class="eyebrow">{{ topic.eyebrow }}</p>
+        <h1>{{ topic.title }}</h1>
+        <p class="page-hero__summary">{{ topic.summary }}</p>
+        <div class="page-hero__actions">
+          <app-button [label]="topic.ctaLabel" routerLink="/kontakt" />
+          <app-button label="Vibe Coding ansehen" routerLink="/vibe-coding" variant="secondary" />
+        </div>
+      </div>
+      <app-fine-tuning-pipeline appScrollReveal />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container two-column">
+      <app-section-header
+        appScrollReveal
+        eyebrow="Entscheidung"
+        title="Fine-Tuning ist mächtig, aber nicht immer die erste Antwort."
+        text="Prompting, RAG und Fine-Tuning lösen unterschiedliche Qualitätsprobleme."
+      />
+      <div class="copy-stack" appScrollReveal>
+        @for (paragraph of topic.paragraphs; track paragraph) {
+          <p>{{ paragraph }}</p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <app-section-header
+        appScrollReveal
+        eyebrow="Vergleich"
+        title="Prompting, RAG oder Fine-Tuning?"
+        text="Die beste Architektur hängt von Aktualität, Konsistenz, Datenqualität und Risiko ab."
+      />
+      <app-comparison-cards appScrollReveal [items]="comparison$ | async" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <app-section-header
+        appScrollReveal
+        eyebrow="Pipeline"
+        title="Vom Datensatz zum spezialisierten Modell."
+        text="Der Prozess bleibt messbar: Daten bereinigen, trainieren, evaluieren und kontrolliert integrieren."
+      />
+      <div class="feature-grid">
+        @for (feature of topic.features; track feature.title) {
+          <app-feature-card appScrollReveal [feature]="feature" />
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container highlight-grid">
+      @for (highlight of topic.highlights; track highlight; let index = $index) {
+        <app-glow-card appScrollReveal [tone]="index === 2 ? 'violet' : index === 1 ? 'cyan' : 'blue'">
+          <div class="highlight-card">
+            <span>MODEL 0{{ index + 1 }}</span>
+            <p>{{ highlight }}</p>
+          </div>
+        </app-glow-card>
+      }
+    </div>
+  </section>
+}

@@ -1,0 +1,15 @@
+<div class="comparison">
+  @for (item of items; track item.title) {
+    <article class="comparison__card" [class]="'comparison__card comparison__card--' + item.accent">
+      <span class="comparison__badge">{{ item.badge }}</span>
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.description }}</p>
+      <ul>
+        @for (strength of item.strengths; track strength) {
+          <li>{{ strength }}</li>
+        }
+      </ul>
+      <strong>{{ item.idealFor }}</strong>
+    </article>
+  }
+</div>

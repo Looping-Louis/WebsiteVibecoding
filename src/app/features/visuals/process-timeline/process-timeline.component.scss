@@ -1,0 +1,71 @@
+.timeline {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline__item {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.048);
+  padding: 1rem;
+  animation: softRise 5s ease-in-out infinite;
+
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h3 {
+    margin-top: 0.25rem;
+  }
+
+  p {
+    margin-top: 0.55rem;
+    color: var(--color-muted);
+  }
+
+  small {
+    color: var(--color-cyan);
+    font-weight: 900;
+  }
+}
+
+.timeline__label {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(43, 125, 255, 0.24), rgba(66, 233, 255, 0.13));
+  color: var(--color-cyan);
+  font-weight: 900;
+}
+
+@keyframes softRise {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@media (min-width: 920px) {
+  .timeline {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .timeline__item {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline__item {
+    animation: none;
+  }
+}

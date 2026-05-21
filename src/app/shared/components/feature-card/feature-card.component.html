@@ -1,0 +1,24 @@
+@if (feature.route) {
+  <a class="feature-card" [routerLink]="feature.route">
+    <ng-container *ngTemplateOutlet="content" />
+  </a>
+} @else {
+  <article class="feature-card">
+    <ng-container *ngTemplateOutlet="content" />
+  </article>
+}
+
+<ng-template #content>
+  <span class="feature-card__icon" aria-hidden="true">{{ feature.icon }}</span>
+  <div>
+    <h3>{{ feature.title }}</h3>
+    <p>{{ feature.description }}</p>
+  </div>
+  @if (feature.tags?.length) {
+    <ul aria-label="Schwerpunkte">
+      @for (tag of feature.tags; track tag) {
+        <li>{{ tag }}</li>
+      }
+    </ul>
+  }
+</ng-template>
