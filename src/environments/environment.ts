@@ -1,7 +1,7 @@
 export const environment = {
-  production: false,
-  apiBaseUrl: 'https://api.example.com',
-  graphqlEndpoint: 'https://api.example.com/graphql',
+  production: true,
+  apiBaseUrl: 'https://websitevibecoding.onrender.com/api',
+  graphqlEndpoint: 'https://websitevibecoding.onrender.com/graphql',
   contactEndpoint: '/contact',
   authEndpoint: '/auth/login',
   aiEndpoint: '/ai/generate'
