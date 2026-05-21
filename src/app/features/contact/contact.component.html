@@ -52,7 +52,13 @@
 
         @if (submitState() === 'success') {
           <p class="contact-form__success" role="status">
-            Danke. Die Anfrage wurde lokal simuliert und ist bereit für eine spätere API-Anbindung.
+            Danke. Deine Anfrage wurde übermittelt.
+          </p>
+        }
+
+        @if (submitState() === 'error') {
+          <p class="contact-form__error" role="alert">
+            {{ error() }}
           </p>
         }
       </form>

@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, delay, map, Observable, of, tap } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthSession, LoginRequest } from '../models';
 
@@ -9,6 +10,7 @@ const STORAGE_KEY = 'ai-native-studio-session';
   providedIn: 'root'
 })
 export class AuthService {
+  private readonly http = inject(HttpClient);
   private readonly endpoint = `${environment.apiBaseUrl}${environment.authEndpoint}`;
   private readonly sessionSubject = new BehaviorSubject<AuthSession | null>(this.readSession());
 
@@ -20,28 +22,20 @@ export class AuthService {
   }
 
   login(request: LoginRequest): Observable<boolean> {
-    void this.endpoint;
+    const credentials: LoginRequest = {
+      email: request.email.trim().toLowerCase(),
+      password: request.password
+    };
 
-    const validDemoLogin =
-      request.email.trim().toLowerCase() === 'demo@ai.local' && request.password === 'demo1234';
-
-    return of(validDemoLogin).pipe(
-      delay(450),
-      tap((success) => {
-        if (!success) {
-          return;
-        }
-
-        const session: AuthSession = {
-          email: request.email.trim().toLowerCase(),
-          displayName: 'Demo User',
-          token: `local-demo-${Date.now()}`,
-          expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 8).toISOString()
-        };
-
-        this.persistSession(session);
-      })
+    return this.http.post<AuthSession>(this.endpoint, credentials).pipe(
+      tap((session) => this.persistSession(session)),
+      map(() => true),
+      catchError(() => of(false))
     );
+  }
+
+  getToken(): string | null {
+    return this.sessionSubject.value?.token ?? null;
   }
 
   logout(): void {

@@ -53,7 +53,8 @@
   font-size: 0.88rem;
 }
 
-.contact-form__success {
+.contact-form__success,
+.contact-form__error {
   margin: 0;
   border: 1px solid rgba(66, 233, 255, 0.22);
   border-radius: var(--radius-sm);
@@ -61,6 +62,12 @@
   color: var(--color-cyan);
   padding: 0.9rem 1rem;
   font-weight: 800;
+}
+
+.contact-form__error {
+  border-color: rgba(255, 107, 122, 0.22);
+  background: rgba(255, 107, 122, 0.1);
+  color: #ffb4bf;
 }
 
 .contact-notes__grid {

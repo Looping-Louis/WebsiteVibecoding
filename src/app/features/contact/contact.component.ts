@@ -29,7 +29,8 @@ export class ContactComponent {
   private readonly contactService = inject(ContactService);
 
   readonly topics$ = this.contentService.getContactTopics();
-  readonly submitState = signal<'idle' | 'submitting' | 'success'>('idle');
+  readonly submitState = signal<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  readonly error = signal('');
 
   readonly form = this.formBuilder.group({
     name: ['', [Validators.required]],
@@ -45,19 +46,26 @@ export class ContactComponent {
     }
 
     this.submitState.set('submitting');
+    this.error.set('');
     const request: ContactRequest = this.form.getRawValue();
 
     this.contactService
       .submitContact(request)
       .pipe(take(1))
-      .subscribe(() => {
-        this.submitState.set('success');
-        this.form.reset({
-          name: '',
-          email: '',
-          topic: request.topic,
-          message: ''
-        });
+      .subscribe({
+        next: () => {
+          this.submitState.set('success');
+          this.form.reset({
+            name: '',
+            email: '',
+            topic: request.topic,
+            message: ''
+          });
+        },
+        error: () => {
+          this.submitState.set('error');
+          this.error.set('Die Anfrage konnte gerade nicht gesendet werden. Bitte versuche es erneut.');
+        }
       });
   }
 

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,6 +22,7 @@ export class AiWorkspaceComponent {
 
   readonly session$ = this.authService.session$;
   readonly loading = signal(false);
+  readonly error = signal('');
   readonly messages = signal<AiMessage[]>([]);
 
   readonly form = this.formBuilder.group({
@@ -42,14 +44,26 @@ export class AiWorkspaceComponent {
 
     this.messages.update((messages) => [...messages, userMessage]);
     this.loading.set(true);
+    this.error.set('');
     this.form.reset({ prompt: '' });
 
     this.aiWorkspaceService
       .generate({ prompt })
       .pipe(take(1))
-      .subscribe((message) => {
-        this.messages.update((messages) => [...messages, message]);
-        this.loading.set(false);
+      .subscribe({
+        next: (message) => {
+          this.messages.update((messages) => [...messages, message]);
+          this.loading.set(false);
+        },
+        error: (error: unknown) => {
+          this.loading.set(false);
+          this.error.set('Die KI-Anfrage konnte gerade nicht verarbeitet werden.');
+
+          if (error instanceof HttpErrorResponse && error.status === 401) {
+            this.authService.logout();
+            void this.router.navigate(['/login']);
+          }
+        }
       });
   }
 

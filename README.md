@@ -11,6 +11,18 @@ npm start
 
 Die App läuft standardmäßig unter `http://localhost:4200/`.
 
+## Backend
+
+```bash
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+Die API läuft unter `http://localhost:3000/api` und erlaubt CORS für
+`http://localhost:4200`.
+
 ## Geschützter KI Workspace
 
 Route: `http://localhost:4200/ki-workspace`
@@ -22,7 +34,7 @@ E-Mail: demo@ai.local
 Passwort: demo1234
 ```
 
-Die Authentifizierung ist aktuell nur eine lokale Frontend-Demo. Für echte Logins kann später `AuthService` an `environment.authEndpoint` angebunden werden. Die spätere KI-Anbindung ist in `AiWorkspaceService` über `environment.aiEndpoint` vorbereitet.
+Die Authentifizierung nutzt das Express-Backend unter `environment.authEndpoint`. Der KI Workspace ruft `environment.aiEndpoint` mit dem gespeicherten Bearer Token auf.
 
 ## Build
 

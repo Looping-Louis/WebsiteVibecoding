@@ -28,7 +28,7 @@
           </div>
           <div>
             <dt>Backend</dt>
-            <dd>Noch nicht verbunden</dd>
+            <dd>API verbunden</dd>
           </div>
         </dl>
       </aside>
@@ -51,6 +51,10 @@
 
           @if (loading()) {
             <p class="workspace__loading" role="status">Antwort wird vorbereitet...</p>
+          }
+
+          @if (error()) {
+            <p class="workspace__error" role="alert">{{ error() }}</p>
           }
         </div>
 
