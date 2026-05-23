@@ -7,3 +7,7 @@ export const aiGenerateSchema = z.object({
 export const aiChatSchema = z.object({
   message: z.string().trim().min(1).max(8000)
 });
+
+export const aiVectorStoreCreateSchema = z.object({
+  name: z.string().trim().min(1).max(120).optional()
+});

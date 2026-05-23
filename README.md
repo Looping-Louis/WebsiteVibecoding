@@ -37,6 +37,29 @@ Passwort: siehe INITIAL_USER_PASSWORD
 
 Die Authentifizierung nutzt echte PostgreSQL-Accounts im Express-Backend unter `environment.authEndpoint`. Der KI Workspace ruft `environment.aiEndpoint` mit dem gespeicherten Bearer Token auf.
 
+## RAG mit OpenAI Vector Stores
+
+Das Backend nutzt die OpenAI Responses API mit `file_search`. Der OpenAI API-Key bleibt nur im Backend.
+
+1. Vector Store anlegen:
+
+```bash
+curl -X POST http://localhost:3000/api/ai/vector-store/create \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Website Wissen"}'
+```
+
+2. Dokument hochladen:
+
+```bash
+curl -X POST http://localhost:3000/api/ai/files/upload \
+  -H "Authorization: Bearer <token>" \
+  -F "file=@/pfad/zur/datei.pdf"
+```
+
+Erlaubt sind PDF, TXT, MD und DOCX. Danach beantwortet `/api/ai/chat` Fragen primär auf Basis der hochgeladenen Dokumente.
+
 ## Build
 
 ```bash

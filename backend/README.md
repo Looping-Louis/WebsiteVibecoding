@@ -50,6 +50,7 @@ CORS_ORIGIN=https://websitevibecoding-1.onrender.com
 HOST=0.0.0.0
 OPENAI_API_KEY=<dein OpenAI API-Key>
 OPENAI_MODEL=gpt-5.5
+OPENAI_VECTOR_STORE_ID=<optional vorhandene Vector Store ID>
 ```
 
 Backend Build Command für den ersten Deploy:
@@ -69,6 +70,38 @@ npm ci && npm run db:migrate && npm run build
 - `GET /api/health`
 - `POST /api/auth/login`
 - `POST /api/auth/register` wenn `ALLOW_REGISTRATION=true`
+- `POST /api/ai/vector-store/create` mit `Authorization: Bearer <token>`, optional Body `{ "name": "..." }`
+- `POST /api/ai/files/upload` mit `Authorization: Bearer <token>`, Multipart-Feld `file`, erlaubt PDF/TXT/MD/DOCX
 - `POST /api/ai/chat` mit `Authorization: Bearer <token>`, Body `{ "message": "..." }`, Response `{ "reply": "..." }`
 - `POST /api/contact`
 - `POST /api/ai/generate` mit `Authorization: Bearer <token>`
+
+## RAG Upload und Chat
+
+Vector Store anlegen:
+
+```bash
+curl -X POST http://localhost:3000/api/ai/vector-store/create \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Website Wissen"}'
+```
+
+Dokument hochladen:
+
+```bash
+curl -X POST http://localhost:3000/api/ai/files/upload \
+  -H "Authorization: Bearer <token>" \
+  -F "file=@/pfad/zur/datei.pdf"
+```
+
+RAG-Chat testen:
+
+```bash
+curl -X POST http://localhost:3000/api/ai/chat \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{"message":"Was steht in meinen Dokumenten zu ...?"}'
+```
+
+`/api/ai/chat` ist rate-limited und nutzt `file_search` mit dem aktiven Vector Store. Wenn keine passende Information gefunden wird, antwortet die KI entsprechend ehrlich.

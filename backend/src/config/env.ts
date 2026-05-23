@@ -35,7 +35,8 @@ const envSchema = z.object({
   INITIAL_USER_DISPLAY_NAME: z.string().min(1).default('Demo User'),
   ALLOW_REGISTRATION: booleanEnv.default(false),
   OPENAI_API_KEY: z.string().optional(),
-  OPENAI_MODEL: z.string().min(1).default('gpt-5.5')
+  OPENAI_MODEL: z.string().min(1).default('gpt-5.5'),
+  OPENAI_VECTOR_STORE_ID: z.string().optional()
 });
 
 const parsedEnv = envSchema.safeParse(process.env);
@@ -61,5 +62,6 @@ export const env = {
   initialUserDisplayName: values.INITIAL_USER_DISPLAY_NAME,
   allowRegistration: values.ALLOW_REGISTRATION,
   openAiApiKey: values.OPENAI_API_KEY || undefined,
-  openAiModel: values.OPENAI_MODEL
+  openAiModel: values.OPENAI_MODEL,
+  openAiVectorStoreId: values.OPENAI_VECTOR_STORE_ID || undefined
 } as const;

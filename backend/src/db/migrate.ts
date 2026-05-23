@@ -35,6 +35,39 @@ const statements = [
       provider text NOT NULL,
       created_at timestamptz NOT NULL DEFAULT now()
     )
+  `,
+  `
+    ALTER TABLE ai_generations
+    ADD COLUMN IF NOT EXISTS vector_store_id text
+  `,
+  `
+    CREATE TABLE IF NOT EXISTS ai_vector_stores (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      openai_vector_store_id text NOT NULL UNIQUE,
+      name text NOT NULL,
+      status text NOT NULL,
+      is_default boolean NOT NULL DEFAULT false,
+      created_by uuid REFERENCES users(id) ON DELETE SET NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )
+  `,
+  `
+    CREATE UNIQUE INDEX IF NOT EXISTS ai_vector_stores_one_default_idx
+    ON ai_vector_stores (is_default)
+    WHERE is_default = true
+  `,
+  `
+    CREATE TABLE IF NOT EXISTS ai_vector_store_files (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      openai_vector_store_id text NOT NULL,
+      openai_file_id text NOT NULL,
+      filename text NOT NULL,
+      mime_type text,
+      bytes bigint NOT NULL,
+      status text NOT NULL,
+      created_by uuid REFERENCES users(id) ON DELETE SET NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )
   `
 ];
 
