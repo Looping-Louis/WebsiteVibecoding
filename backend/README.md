@@ -44,10 +44,12 @@ Lege bei Render eine PostgreSQL-Datenbank an und setze im Backend Web Service:
 
 ```text
 DATABASE_URL=<Internal Database URL oder External Database URL>
-DATABASE_SSL=true
+DATABASE_SSL=false
 JWT_SECRET=<mindestens 32 Zeichen>
 CORS_ORIGIN=https://websitevibecoding-1.onrender.com
 HOST=0.0.0.0
+OPENAI_API_KEY=<dein OpenAI API-Key>
+OPENAI_MODEL=gpt-5.5
 ```
 
 Backend Build Command für den ersten Deploy:
@@ -67,5 +69,6 @@ npm ci && npm run db:migrate && npm run build
 - `GET /api/health`
 - `POST /api/auth/login`
 - `POST /api/auth/register` wenn `ALLOW_REGISTRATION=true`
+- `POST /api/ai/chat` mit `Authorization: Bearer <token>`, Body `{ "message": "..." }`, Response `{ "reply": "..." }`
 - `POST /api/contact`
 - `POST /api/ai/generate` mit `Authorization: Bearer <token>`

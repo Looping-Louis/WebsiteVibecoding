@@ -4,5 +4,5 @@ export const environment = {
   graphqlEndpoint: 'http://localhost:3000/graphql',
   contactEndpoint: '/contact',
   authEndpoint: '/auth/login',
-  aiEndpoint: '/ai/generate'
+  aiEndpoint: '/ai/chat'
 };

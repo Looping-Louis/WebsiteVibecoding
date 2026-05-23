@@ -4,5 +4,5 @@ export const environment = {
   graphqlEndpoint: 'https://websitevibecoding.onrender.com/graphql',
   contactEndpoint: '/contact',
   authEndpoint: '/auth/login',
-  aiEndpoint: '/ai/generate'
+  aiEndpoint: '/ai/chat'
 };

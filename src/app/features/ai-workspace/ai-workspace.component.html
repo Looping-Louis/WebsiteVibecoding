@@ -3,7 +3,7 @@
     <header class="workspace__header">
       <div>
         <p>KI Workspace</p>
-        <h1>Schlichter Bereich für deine spätere KI-Anbindung.</h1>
+        <h1>Schlichter Bereich für deine KI-Anbindung.</h1>
       </div>
 
       <div class="workspace__session">
@@ -37,8 +37,7 @@
         <div class="workspace__messages">
           @if (!messages().length) {
             <p class="workspace__empty">
-              Noch keine Anfrage. Dieses Panel ist bewusst reduziert und wartet auf deine spätere
-              KI-Integration.
+              Noch keine Anfrage. Dieses Panel sendet Prompts sicher über dein Backend.
             </p>
           }
 
@@ -64,7 +63,7 @@
             id="prompt"
             rows="4"
             formControlName="prompt"
-            placeholder="Schreibe hier später deine Anfrage an die KI..."
+            placeholder="Schreibe hier deine Anfrage an die KI..."
           ></textarea>
           <button type="submit" [disabled]="loading()">Senden</button>
         </form>

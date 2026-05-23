@@ -7,3 +7,11 @@ export interface AiMessage {
 export interface AiGenerateRequest {
   prompt: string;
 }
+
+export interface AiChatRequest {
+  message: string;
+}
+
+export interface AiChatResponse {
+  reply: string;
+}

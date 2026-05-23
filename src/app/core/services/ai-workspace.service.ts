@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AiGenerateRequest, AiMessage } from '../models';
+import { AiChatResponse, AiGenerateRequest, AiMessage } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,18 @@ export class AiWorkspaceService {
   private readonly endpoint = `${environment.apiBaseUrl}${environment.aiEndpoint}`;
 
   generate(request: AiGenerateRequest): Observable<AiMessage> {
-    return this.http.post<AiMessage>(this.endpoint, request);
+    return this.chat(request.prompt).pipe(
+      map((response) => ({
+        role: 'assistant' as const,
+        content: response.reply,
+        createdAt: new Date().toISOString()
+      }))
+    );
+  }
+
+  chat(message: string): Observable<AiChatResponse> {
+    return this.http.post<AiChatResponse>(this.endpoint, {
+      message
+    });
   }
 }
