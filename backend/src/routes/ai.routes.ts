@@ -24,6 +24,6 @@ aiRoutes.post('/ai/chat', aiChatRateLimit, requireAuth, validateBody(aiChatSchem
   aiController.chat(request, response, next)
 );
 
-aiRoutes.post('/ai/generate', requireAuth, validateBody(aiGenerateSchema), (request, response, next) =>
+aiRoutes.post('/ai/generate', aiChatRateLimit, requireAuth, validateBody(aiGenerateSchema), (request, response, next) =>
   aiController.generate(request, response, next)
 );
